@@ -13,7 +13,16 @@ public static class Arrays
         // step by step before you write the code. The plan should be clear enough that it could
         // be implemented by another person.
 
-        return []; // replace this return statement with your own
+        // Step 1 : Create an array of doubles with size the size equal to the length
+        double[] multiplesArray = new double[length];
+
+        // Step 2: Fill in the array with multiples of the given number
+         for (int i = 0; i < length; i++) {
+            multiplesArray[i] = (i + 1) * number;
+        }
+
+        // Step 3: Return the filled array
+        return multiplesArray; // replace this return statement with your own
     }
 
     /// <summary>
@@ -29,5 +38,20 @@ public static class Arrays
         // Remember: Using comments in your program, write down your process for solving this problem
         // step by step before you write the code. The plan should be clear enough that it could
         // be implemented by another person.
+
+        // Step 1: Handle overflow by taking modulo with data.count
+        int count = data.Count;
+        amount = amount % count;
+
+        // Step 2: Create a list to hold last 'amount' elements temporarily
+        List<int> tempList = data.GetRange(count - amount, amount);
+
+        // Step 3: Create another temporary list to hold the remaining parts of the elements
+        List<int> remainingList = data.GetRange(0, count - amount);
+
+        // Step 4: Clear the original list and add the new order of elements to the list
+        data.Clear();
+        data.AddRange(tempList);
+        data.AddRange(remainingList);
     }
 }
