@@ -9,31 +9,42 @@
     /// </summary>
     /// <param name="value">The value</param>
     /// <param name="priority">The priority</param>
-    public void Enqueue(string value, int priority)
-    {
-        var newNode = new PriorityItem(value, priority);
-        _queue.Add(newNode);
-    }
+       public void Enqueue(string value, int priority)  
+    {  
+        var newNode = new PriorityItem(value, priority); 
+        // Add to the back of the queue 
+        _queue.Add(newNode);   
+    }  
 
-    public string Dequeue()
-    {
-        if (_queue.Count == 0) // Verify the queue is not empty
-        {
-            throw new InvalidOperationException("The queue is empty.");
-        }
+    /// <summary>  
+    /// Dequeue the item with the highest priority.  
+    /// </summary> 
+    public string Dequeue()  
+    {  
+        // Verify the queue is not empty 
+        if (_queue.Count == 0)  
+        {  
+            throw new InvalidOperationException("The queue is empty.");  
+        }  
 
-        // Find the index of the item with the highest priority to remove
-        var highPriorityIndex = 0;
-        for (int index = 1; index < _queue.Count - 1; index++)
-        {
-            if (_queue[index].Priority >= _queue[highPriorityIndex].Priority)
-                highPriorityIndex = index;
-        }
+        // Find the index of the item with the highest priority  
+        int highPriorityIndex = 0;  
+        for (int index = 1; index < _queue.Count; index++)  
+        {  
+            if (_queue[index].Priority > _queue[highPriorityIndex].Priority ||   
+                (_queue[index].Priority == _queue[highPriorityIndex].Priority && index < highPriorityIndex))  
+            { 
+                // Update to the new highest priority index 
+                highPriorityIndex = index;   
+            }  
+        }  
 
-        // Remove and return the item with the highest priority
-        var value = _queue[highPriorityIndex].Value;
-        return value;
-    }
+        // Get the value and remove the item with the highest priority  
+        var value = _queue[highPriorityIndex].Value; 
+        // Remove the item from the queue  
+        _queue.RemoveAt(highPriorityIndex);  
+        return value;  
+    }  
 
     public override string ToString()
     {
