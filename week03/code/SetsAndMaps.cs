@@ -22,7 +22,24 @@ public static class SetsAndMaps
     public static string[] FindPairs(string[] words)
     {
         // TODO Problem 1 - ADD YOUR CODE HERE
-        return [];
+        var wordSet = new HashSet<string>(words);
+        var result = new List<string>();
+
+        foreach (var word in words)
+        {
+            // Skip words with the same letters
+            if (word[0] == word[1]) continue;
+
+            var reversed = new string(new[] { word[1], word[0] });
+            if (wordSet.Contains(reversed))
+            {
+                result.Add($"{word} & {reversed}");
+                // Remove the two to avoid duplication
+                wordSet.Remove(word);
+                wordSet.Remove(reversed);
+            }
+        }
+        return result.ToArray();
     }
 
     /// <summary>
@@ -39,10 +56,27 @@ public static class SetsAndMaps
     public static Dictionary<string, int> SummarizeDegrees(string filename)
     {
         var degrees = new Dictionary<string, int>();
+
         foreach (var line in File.ReadLines(filename))
         {
             var fields = line.Split(",");
             // TODO Problem 2 - ADD YOUR CODE HERE
+            // Ensure there are enough fields
+            if (fields.Length > 4)
+            {
+                // Locate degree in the 4th column (index 3)
+                var degree = fields[3].Trim();
+                // Normalize degree names
+                degree = degree.Replace("Bachelor's", "Bachelors").Replace("master's", "Masters");
+                if (degrees.ContainsKey(degree))
+                {
+                    degrees[degree]++;
+                }
+                else
+                {
+                    degrees[degree] = 1;
+                }
+            }
         }
 
         return degrees;
@@ -67,7 +101,33 @@ public static class SetsAndMaps
     public static bool IsAnagram(string word1, string word2)
     {
         // TODO Problem 3 - ADD YOUR CODE HERE
-        return false;
+
+        // Clean the input words, remove spaces and convert to lowercase   
+        var cleanedWord1 = word1.Replace(" ", "").ToLower();
+        var cleanedWord2 = word2.Replace(" ", "").ToLower();
+
+        // Early exit if lengths differ
+        if (cleanedWord1.Length != cleanedWord2.Length)
+            return false;
+
+        // Create an array to count occurrences of each character (aauming ASCII)
+        int[] charCount = new int[256];
+
+        foreach (var c in cleanedWord1)
+        {
+            charCount[c]++;
+        }
+
+        // Decrease the count for characters in the second word
+        foreach (var c in cleanedWord2)
+        {
+            charCount[c]--;
+            if (charCount[c] < 0)
+            {
+                return false;
+            }
+        }
+        return true;
     }
 
     /// <summary>
