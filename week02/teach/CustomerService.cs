@@ -11,18 +11,32 @@ public class CustomerService {
         // Test Cases
 
         // Test 1
-        // Scenario: 
-        // Expected Result: 
+        // Scenario: Is it possible to add one customer to the queue?
+        // Expected Result: [size=1]
         Console.WriteLine("Test 1");
+        var cs = new CustomerService(10);
+        cs.AddNewCustomer();
+        cs.ServeCustomer();
+        Console.WriteLine(cs);
 
         // Defect(s) Found: 
 
         Console.WriteLine("=================");
 
         // Test 2
-        // Scenario: 
+        // Scenario: Can I two customers to the queue
         // Expected Result: 
         Console.WriteLine("Test 2");
+        cs = new CustomerService(10);
+        cs.AddNewCustomer();
+        cs.AddNewCustomer();
+        Console.WriteLine(cs);
+
+        cs.ServeCustomer();
+        cs.ServeCustomer();
+
+        Console.WriteLine(cs);
+
 
         // Defect(s) Found: 
 
