@@ -13,7 +13,7 @@ public static class Arrays
         // step by step before you write the code. The plan should be clear enough that it could
         // be implemented by another person.
 
-        // Step 1 : Create an array of doubles with size the size equal to the length
+        // Step 1 : Create an array of doubles with the size equal to the length
         double[] multiplesArray = new double[length];
 
         // Step 2: Fill in the array with multiples of the given number
