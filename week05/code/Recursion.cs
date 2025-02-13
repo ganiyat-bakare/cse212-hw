@@ -191,17 +191,18 @@ public static class Recursion
         // ADD CODE HERE
 
         // Check if the current position is valid
-        if (!maze.IsValidMove(currPath, 1, 2))
+        if (!maze.IsValidMove(currPath, x, y))
         {
+            // if the move is valid, exit the function
             return;
         }
 
         // Add the current position to the path
-        currPath.Add((1, 2));
+        currPath.Add((x, y));
 
-        // Check if we have reaced the end
+        // Check if we have reached the end
         // results.Add(currPath.AsString()); // Use this to add your path to the results array keeping track of complete maze solutions when you find the solution.
-        if (maze.IsEnd(1, 2))
+        if (maze.IsEnd(x, y))
         {
             results.Add(currPath.AsString());
         }
